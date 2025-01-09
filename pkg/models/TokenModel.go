@@ -6,7 +6,7 @@ import (
 	"time"
 )
 
-type TokenModel struct {
+type Token struct {
 	gorm.Model
 	UserId int64     `json:"UserId"`
 	Token  string    `json:"Token"`
@@ -17,13 +17,13 @@ type TokenModel struct {
 func init() {
 	config.Connect()
 	db = config.GetDB()
-	err := db.AutoMigrate(&UserModel{})
+	err := db.AutoMigrate(&Token{})
 	if err != nil {
 		panic(err)
 	}
 }
 
-func (t *TokenModel) CreateAccessToken() *TokenModel {
+func (t *Token) CreateAccessToken() *Token {
 	db.Create(&t)
 	return t
 }

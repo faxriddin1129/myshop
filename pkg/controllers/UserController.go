@@ -1,6 +1,7 @@
 package controllers
 
 import (
+	"MYSHOP/pkg/models"
 	"MYSHOP/pkg/repository"
 	"MYSHOP/pkg/utils"
 	"encoding/json"
@@ -11,7 +12,7 @@ import (
 
 func Login(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
-	bodyParams := &repository.LoginRepository{}
+	bodyParams := &repository.UserLoginStructRepository{}
 	utils.ParseBody(r, bodyParams)
 	validate := validator.New()
 	err := validate.Struct(bodyParams)
@@ -35,10 +36,12 @@ func Login(w http.ResponseWriter, r *http.Request) {
 }
 
 func GetMe(w http.ResponseWriter, r *http.Request) {
+
 	w.Header().Set("Content-Type", "application/json")
-	response := map[string]string{
-		"msg": "GetMe Success",
-	}
+	//response := map[string]string{
+	//	"msg": "GetMe Success",
+	//}
+	response := models.GetAllUsers()
 	res, _ := json.Marshal(response)
 	w.WriteHeader(http.StatusOK)
 	w.Write(res)

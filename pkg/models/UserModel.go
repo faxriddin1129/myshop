@@ -9,7 +9,7 @@ import (
 
 var db *gorm.DB
 
-type UserModel struct {
+type User struct {
 	gorm.Model
 	FirstName    string    `json:"FirstName"`
 	LastName     string    `json:"LastName"`
@@ -19,19 +19,17 @@ type UserModel struct {
 	Role         int16     `json:"Role"`
 	PasswordHash string    `json:"PasswordHash"`
 	Status       int16     `json:"Status"`
-	CreatedAt    time.Time `json:"CreatedAt"`
-	UpdatedAt    time.Time `json:"UpdatedAt"`
 }
 
 func init() {
 	config.Connect()
 	db = config.GetDB()
-	err := db.AutoMigrate(&UserModel{})
+	err := db.AutoMigrate(&User{})
 	if err != nil {
 		panic(err)
 	}
 
-	defaultAdmin := UserModel{
+	defaultAdmin := User{
 		FirstName:    "Fakhriddin",
 		LastName:     "Boboyev",
 		Birthday:     time.Date(2000, time.April, 6, 0, 0, 0, 0, time.UTC),
@@ -42,7 +40,7 @@ func init() {
 		Status:       1,
 	}
 
-	var existingAdmin UserModel
+	var existingAdmin User
 	db.Where("email = ?", defaultAdmin.Email).First(&existingAdmin)
 	if existingAdmin.ID == 0 {
 		if err := db.Create(&defaultAdmin).Error; err != nil {
@@ -51,36 +49,36 @@ func init() {
 	}
 }
 
-func (u *UserModel) CreateUser() *UserModel {
+func (u *User) CreateUser() *User {
 	db.Create(&u)
 	return u
 }
 
-func (u *UserModel) GetUserByPhone(phone string) *UserModel {
-	var user UserModel
+func (u *User) GetUserByPhone(phone string) *User {
+	var user User
 	db.Where("phone = ?", phone).First(&user)
 	return &user
 }
 
-func (u *UserModel) GetUserByEmail(email string) *UserModel {
-	var user UserModel
+func (u *User) GetUserByEmail(email string) *User {
+	var user User
 	db.Where("email = ?", email).First(&user)
 	return &user
 }
 
-func GetAllUsers() []UserModel {
-	var users []UserModel
+func GetAllUsers() []User {
+	var users []User
 	db.Find(&users)
 	return users
 }
 
-func GetUserById(Id int64) (*UserModel, *gorm.DB) {
-	var getUser UserModel
+func GetUserById(Id int64) (*User, *gorm.DB) {
+	var getUser User
 	db := db.Where("ID=?", Id).Find(&getUser)
 	return &getUser, db
 }
 
-func UpdateUser(user UserModel) (int64, error) {
+func UpdateUser(user User) (int64, error) {
 	re := db.Model(&user).Where("ID=?", user.ID).Updates(&user)
 	return re.RowsAffected, re.Error
 }

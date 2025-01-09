@@ -7,13 +7,19 @@ import (
 	"github.com/gorilla/mux"
 	"log"
 	"net/http"
+	"time"
 )
 
 func main() {
+
+	loc, _ := time.LoadLocation("Asia/Tashkent")
+	time.Local = loc
+
 	router := mux.NewRouter()
 	router.HandleFunc("/", welcome)
 	routes.UserRoutes(router)
 	http.Handle("/", router)
+
 	fmt.Println("Listening on :8001")
 	log.Fatal(http.ListenAndServe(":8001", router))
 }
