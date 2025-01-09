@@ -1,25 +1,27 @@
 package main
 
 import (
+	"MYSHOP/pkg/routes"
 	"encoding/json"
+	"fmt"
 	"github.com/gorilla/mux"
 	"log"
 	"net/http"
 )
 
-func welcome(w http.ResponseWriter, r *http.Request) {
-	response := map[string]string{"msg": "Welcome to My Shop!"}
-	w.Header().Set("Content-Type", "application/json")
-	err := json.NewEncoder(w).Encode(response)
-	if err != nil {
-		return
-	}
-}
-
 func main() {
 	router := mux.NewRouter()
 	router.HandleFunc("/", welcome)
+	routes.UserRoutes(router)
 	http.Handle("/", router)
-	log.Println("Listening on :8001")
+	fmt.Println("Listening on :8001")
 	log.Fatal(http.ListenAndServe(":8001", router))
+}
+
+func welcome(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json")
+	response := map[string]string{"msg": "Welcome to My Shop!"}
+	res, _ := json.Marshal(response)
+	w.WriteHeader(http.StatusOK)
+	w.Write(res)
 }
