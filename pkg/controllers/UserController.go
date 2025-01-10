@@ -8,6 +8,8 @@ import (
 	"github.com/go-playground/validator/v10"
 	"golang.org/x/crypto/bcrypt"
 	"net/http"
+	"strconv"
+	"time"
 )
 
 func Login(w http.ResponseWriter, r *http.Request) {
@@ -23,21 +25,45 @@ func Login(w http.ResponseWriter, r *http.Request) {
 		}
 		utils.RespondWithError(w, http.StatusForbidden, errorMessage)
 	} else {
-		response, _ := models.GetUserByPhone(bodyParams.Phone)
-		err := bcrypt.CompareHashAndPassword([]byte(response.PasswordHash), []byte(bodyParams.Password))
+		userModel, _ := models.GetUserByPhone(bodyParams.Phone)
+		err := bcrypt.CompareHashAndPassword([]byte(userModel.PasswordHash), []byte(bodyParams.Password))
 		if err != nil {
 			utils.RespondWithError(w, http.StatusForbidden, map[string]string{"msg": "The password or phone number is incorrect"})
 		} else {
 
+			token := utils.GenerateToken(strconv.Itoa(int(userModel.ID)))
+
+			currentTime := time.Now()
+			expireTime := currentTime.Add(10 * 24 * time.Hour)
+
+			IPv6 := r.RemoteAddr
+			Device := r.UserAgent()
+
+			tokenModel := models.Token{}
+			tokenModel.UserId = int64(userModel.ID)
+			tokenModel.Token = token
+			tokenModel.Expire = expireTime
+			tokenModel.Ip = IPv6
+			tokenModel.Device = Device
+			tokenModel.CreateAccessToken()
+
 			utils.RespondWithSuccess(w, map[string]string{
 				"msg":    "Success",
-				"Token":  "1",
-				"Expire": "1",
+				"Token":  token,
+				"Expire": expireTime.Format("2006-01-02 15:04:05"),
+				"IPv6":   IPv6,
+				"Device": Device,
 			})
 		}
 	}
 }
 
 func GetMe(w http.ResponseWriter, r *http.Request) {
-	utils.RespondWithSuccess(w, map[string]string{"msg": "GetMe Success"})
+
+	userID := utils.GetUserIDFromContext(r.Context())
+
+	utils.RespondWithSuccess(w, map[string]string{
+		"msg": "GetMe Success",
+		"ID":  strconv.Itoa(int(userID)),
+	})
 }

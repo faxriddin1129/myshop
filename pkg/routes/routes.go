@@ -2,10 +2,12 @@ package routes
 
 import (
 	"MYSHOP/pkg/controllers"
+	"MYSHOP/pkg/middleware"
 	"github.com/gorilla/mux"
+	"net/http"
 )
 
 var UserRoutes = func(router *mux.Router) {
 	router.HandleFunc("/user/login", controllers.Login).Methods("POST")
-	router.HandleFunc("/user/get-me", controllers.GetMe).Methods("GET")
+	router.Handle("/user/get-me", middleware.AuthMiddleware(http.HandlerFunc(controllers.GetMe))).Methods("GET")
 }

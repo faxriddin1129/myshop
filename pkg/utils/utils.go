@@ -1,9 +1,12 @@
 package utils
 
 import (
+	"crypto/rand"
+	"encoding/hex"
 	"encoding/json"
 	"io"
 	"net/http"
+	"time"
 )
 
 func ParseBody(r *http.Request, v interface{}) {
@@ -36,4 +39,17 @@ func RespondWithSuccess(w http.ResponseWriter, message map[string]string) {
 	if err != nil {
 		panic(err)
 	}
+}
+
+func GenerateToken(id string) string {
+	bytes := make([]byte, 16)
+	_, err := rand.Read(bytes)
+	if err != nil {
+		panic(err)
+	}
+	_, err = rand.Read(bytes)
+	token := hex.EncodeToString(bytes)
+	currentTime := time.Now().Format("20060102150405")
+	accessToken := id + "_" + token + currentTime
+	return accessToken
 }

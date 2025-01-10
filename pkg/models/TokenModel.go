@@ -28,3 +28,30 @@ func (t *Token) CreateAccessToken() *Token {
 	db.Create(&t)
 	return t
 }
+
+func init() {
+	config.Connect()
+	db = config.GetDB()
+	err := db.AutoMigrate(&Token{})
+	if err != nil {
+		panic(err)
+	}
+}
+
+func TokenExists(token string) (uint, bool) {
+	var result struct {
+		UserID uint
+	}
+
+	err := db.Table("tokens").Where("token = ?", token).Select("user_id").Scan(&result).Error
+
+	if err != nil {
+		return 0, false
+	}
+
+	if result.UserID == 0 {
+		return 0, false
+	}
+
+	return result.UserID, true
+}
