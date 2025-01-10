@@ -54,16 +54,16 @@ func (u *User) CreateUser() *User {
 	return u
 }
 
-func (u *User) GetUserByPhone(phone string) *User {
-	var user User
-	db.Where("phone = ?", phone).First(&user)
-	return &user
+func GetUserByPhone(Phone string) (*User, *gorm.DB) {
+	var getUser User
+	db := db.Where("Phone=?", Phone).Find(&getUser)
+	return &getUser, db
 }
 
-func (u *User) GetUserByEmail(email string) *User {
-	var user User
-	db.Where("email = ?", email).First(&user)
-	return &user
+func GetUserByEmail(Email string) (*User, *gorm.DB) {
+	var getUser User
+	db := db.Where("Email=?", Email).Find(&getUser)
+	return &getUser, db
 }
 
 func GetAllUsers() []User {

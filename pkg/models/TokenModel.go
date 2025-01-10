@@ -12,6 +12,7 @@ type Token struct {
 	Token  string    `json:"Token"`
 	Expire time.Time `json:"Expire"`
 	Ip     string    `json:"Ip"`
+	Device string    `json:"Device"`
 }
 
 func init() {

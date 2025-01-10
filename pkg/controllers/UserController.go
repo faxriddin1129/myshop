@@ -4,9 +4,9 @@ import (
 	"MYSHOP/pkg/models"
 	"MYSHOP/pkg/repository"
 	"MYSHOP/pkg/utils"
-	"encoding/json"
 	"fmt"
 	"github.com/go-playground/validator/v10"
+	"golang.org/x/crypto/bcrypt"
 	"net/http"
 )
 
@@ -21,28 +21,23 @@ func Login(w http.ResponseWriter, r *http.Request) {
 		for _, err := range err.(validator.ValidationErrors) {
 			errorMessage[err.Field()] = fmt.Sprintf("%s: %s", err.Field(), err.Tag())
 		}
-		res, _ := json.Marshal(errorMessage)
-		w.WriteHeader(http.StatusUnprocessableEntity)
-		w.Write(res)
+		utils.RespondWithError(w, http.StatusForbidden, errorMessage)
 	} else {
-		response := map[string]string{
-			"Token":  bodyParams.Phone,
-			"Expire": bodyParams.Password,
+		response, _ := models.GetUserByPhone(bodyParams.Phone)
+		err := bcrypt.CompareHashAndPassword([]byte(response.PasswordHash), []byte(bodyParams.Password))
+		if err != nil {
+			utils.RespondWithError(w, http.StatusForbidden, map[string]string{"msg": "The password or phone number is incorrect"})
+		} else {
+
+			utils.RespondWithSuccess(w, map[string]string{
+				"msg":    "Success",
+				"Token":  "1",
+				"Expire": "1",
+			})
 		}
-		res, _ := json.Marshal(response)
-		w.WriteHeader(http.StatusOK)
-		w.Write(res)
 	}
 }
 
 func GetMe(w http.ResponseWriter, r *http.Request) {
-
-	w.Header().Set("Content-Type", "application/json")
-	//response := map[string]string{
-	//	"msg": "GetMe Success",
-	//}
-	response := models.GetAllUsers()
-	res, _ := json.Marshal(response)
-	w.WriteHeader(http.StatusOK)
-	w.Write(res)
+	utils.RespondWithSuccess(w, map[string]string{"msg": "GetMe Success"})
 }

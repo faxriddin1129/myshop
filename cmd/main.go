@@ -2,7 +2,7 @@ package main
 
 import (
 	"MYSHOP/pkg/routes"
-	"encoding/json"
+	"MYSHOP/pkg/utils"
 	"fmt"
 	"github.com/gorilla/mux"
 	"log"
@@ -11,23 +11,21 @@ import (
 )
 
 func main() {
-
-	loc, _ := time.LoadLocation("Asia/Tashkent")
-	time.Local = loc
-
 	router := mux.NewRouter()
 	router.HandleFunc("/", welcome)
 	routes.UserRoutes(router)
 	http.Handle("/", router)
-
 	fmt.Println("Listening on :8001")
 	log.Fatal(http.ListenAndServe(":8001", router))
 }
 
 func welcome(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Content-Type", "application/json")
-	response := map[string]string{"msg": "Welcome to My Shop!"}
-	res, _ := json.Marshal(response)
-	w.WriteHeader(http.StatusOK)
-	w.Write(res)
+	utils.RespondWithSuccess(w, map[string]string{
+		"msg": "Welcome to My Shop!",
+	})
+}
+
+func init() {
+	location, _ := time.LoadLocation("Asia/Tashkent")
+	time.Local = location
 }
