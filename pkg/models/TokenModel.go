@@ -43,7 +43,7 @@ func TokenExists(token string) (uint, bool) {
 		UserID uint
 	}
 
-	err := db.Table("tokens").Where("token = ?", token).Select("user_id").Scan(&result).Error
+	err := db.Table("tokens").Where("token = ? AND expire > ?", token, time.Now()).Select("user_id").Scan(&result).Error
 
 	if err != nil {
 		return 0, false

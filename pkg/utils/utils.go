@@ -31,11 +31,17 @@ func RespondWithError(w http.ResponseWriter, statusCode int, message map[string]
 	}
 }
 
-func RespondWithSuccess(w http.ResponseWriter, message map[string]string) {
+func RespondWithSuccess(w http.ResponseWriter, message map[string]string, model interface{}) {
 	w.Header().Set("Content-Type", "application/json")
-	res, _ := json.Marshal(message)
+	var res []byte
+	var err error
+	if model != nil {
+		res, _ = json.Marshal(model)
+	} else {
+		res, _ = json.Marshal(message)
+	}
 	w.WriteHeader(http.StatusOK)
-	_, err := w.Write(res)
+	_, err = w.Write(res)
 	if err != nil {
 		panic(err)
 	}

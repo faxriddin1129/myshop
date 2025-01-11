@@ -16,9 +16,9 @@ type User struct {
 	Birthday     time.Time `json:"Birthday"`
 	Phone        string    `json:"Phone" gorm:"unique"`
 	Email        string    `json:"Email" gorm:"unique"`
-	Role         int16     `json:"Role"`
+	Role         int8      `json:"Role"`
 	PasswordHash string    `json:"PasswordHash"`
-	Status       int16     `json:"Status"`
+	Status       int8      `json:"Status"`
 }
 
 func init() {

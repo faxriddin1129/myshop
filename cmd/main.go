@@ -22,7 +22,7 @@ func main() {
 func welcome(w http.ResponseWriter, r *http.Request) {
 	utils.RespondWithSuccess(w, map[string]string{
 		"msg": "Welcome to My Shop!",
-	})
+	}, nil)
 }
 
 func init() {

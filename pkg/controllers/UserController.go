@@ -31,7 +31,7 @@ func Login(w http.ResponseWriter, r *http.Request) {
 			utils.RespondWithError(w, http.StatusForbidden, map[string]string{"msg": "The password or phone number is incorrect"})
 		} else {
 
-			token := utils.GenerateToken(strconv.Itoa(int(userModel.ID)))
+			token := utils.GenerateToken(strconv.Itoa(int(int64(userModel.ID))))
 
 			currentTime := time.Now()
 			expireTime := currentTime.Add(10 * 24 * time.Hour)
@@ -53,17 +53,13 @@ func Login(w http.ResponseWriter, r *http.Request) {
 				"Expire": expireTime.Format("2006-01-02 15:04:05"),
 				"IPv6":   IPv6,
 				"Device": Device,
-			})
+			}, nil)
 		}
 	}
 }
 
 func GetMe(w http.ResponseWriter, r *http.Request) {
-
 	userID := utils.GetUserIDFromContext(r.Context())
-
-	utils.RespondWithSuccess(w, map[string]string{
-		"msg": "GetMe Success",
-		"ID":  strconv.Itoa(int(userID)),
-	})
+	userModel, _ := models.GetUserById(int64(userID))
+	utils.RespondWithSuccess(w, nil, userModel)
 }
