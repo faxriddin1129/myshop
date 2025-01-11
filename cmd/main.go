@@ -1,6 +1,7 @@
 package main
 
 import (
+	"MYSHOP/pkg/helpers"
 	"MYSHOP/pkg/routes"
 	"MYSHOP/pkg/utils"
 	"fmt"
@@ -16,6 +17,7 @@ func main() {
 	routes.UserRoutes(router)
 	http.Handle("/", router)
 	fmt.Println("Listening on :8001")
+	fmt.Println(helpers.ROLE_ADMIN)
 	log.Fatal(http.ListenAndServe(":8001", router))
 }
 
