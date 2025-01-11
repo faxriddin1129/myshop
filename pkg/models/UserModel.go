@@ -2,6 +2,7 @@ package models
 
 import (
 	"MYSHOP/pkg/config"
+	"MYSHOP/pkg/helpers"
 	"golang.org/x/crypto/bcrypt"
 	"gorm.io/gorm"
 	"time"
@@ -35,7 +36,7 @@ func init() {
 		Birthday:     time.Date(2000, time.April, 6, 0, 0, 0, 0, time.UTC),
 		Phone:        "998907291129",
 		Email:        "fakhriddin1129@gmail.com",
-		Role:         1,
+		Role:         helpers.RolesAdmin,
 		PasswordHash: HashPassword("fakhriddin1129"),
 		Status:       1,
 	}
