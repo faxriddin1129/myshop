@@ -1,6 +1,7 @@
 package utils
 
 import (
+	"MYSHOP/pkg/models"
 	"context"
 )
 
@@ -12,9 +13,10 @@ func SetUserIDToContext(ctx context.Context, userID uint) context.Context {
 	return context.WithValue(ctx, userIDKey, userID)
 }
 
-func GetUserIDFromContext(ctx context.Context) uint {
+func GetUserIDFromContext(ctx context.Context) *models.User {
 	if userID, ok := ctx.Value(userIDKey).(uint); ok {
-		return userID
+		userModel, _ := models.GetUserById(int64(userID))
+		return userModel
 	}
-	return 0
+	panic("User id not found")
 }

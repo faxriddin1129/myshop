@@ -59,7 +59,6 @@ func Login(w http.ResponseWriter, r *http.Request) {
 }
 
 func GetMe(w http.ResponseWriter, r *http.Request) {
-	userID := utils.GetUserIDFromContext(r.Context())
-	userModel, _ := models.GetUserById(int64(userID))
+	userModel := utils.GetUserIDFromContext(r.Context())
 	utils.RespondWithSuccess(w, nil, userModel)
 }
