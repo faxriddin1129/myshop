@@ -36,7 +36,7 @@ func init() {
 		Birthday:     time.Date(2000, time.April, 6, 0, 0, 0, 0, time.UTC),
 		Phone:        "998907291129",
 		Email:        "fakhriddin1129@gmail.com",
-		Role:         helpers.RolesAdmin,
+		Role:         helpers.ROLE_ADMIN,
 		PasswordHash: HashPassword("fakhriddin1129"),
 		Status:       1,
 	}

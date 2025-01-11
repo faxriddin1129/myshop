@@ -1,3 +1,6 @@
 package helpers
 
-const RolesAdmin = 1
+const (
+	ROLE_ADMIN = 1
+	ROLE_USER  = 2
+)
