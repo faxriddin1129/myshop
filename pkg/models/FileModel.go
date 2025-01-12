@@ -25,3 +25,14 @@ func init() {
 		panic(err)
 	}
 }
+
+func CreateFileModel(f *File) *File {
+	db.Create(f)
+	return f
+}
+
+func GetFileById(Id int64) (*File, *gorm.DB) {
+	var getFile File
+	db := db.Where("ID=?", Id).Find(&getFile)
+	return &getFile, db
+}

@@ -7,11 +7,13 @@ import (
 
 type Category struct {
 	gorm.Model
-	NameUz   string `json:"NameUz" gorm:"type:varchar(255)"`
-	NameRu   string `json:"NameRu" gorm:"type:varchar(255)"`
-	ImageUrl string `json:"ImageUrl" gorm:"type:varchar(255)"`
-	ParentID *int64 `json:"ParentID"`
-	Type     string `json:"Type" gorm:"type:varchar(255)"`
+	NameUz         string `json:"NameUz" gorm:"type:varchar(255)"`
+	NameRu         string `json:"NameRu" gorm:"type:varchar(255)"`
+	ImageUrl       string `json:"ImageUrl" gorm:"type:varchar(255)"`
+	ParentID       *int64 `json:"ParentID"`
+	Type           string `json:"Type" gorm:"type:varchar(255)"`
+	FileId         int64  `json:"FileId"`
+	CurrentFileUrl string `json:"CurrentFileUrl" gorm:"type:varchar(255)"`
 }
 
 func (Category) TableName() string {
