@@ -1,7 +1,7 @@
 package models
 
 import (
-	"MYSHOP/pkg/config"
+	"MYSHOP/config"
 	"MYSHOP/pkg/helpers"
 	"golang.org/x/crypto/bcrypt"
 	"gorm.io/gorm"

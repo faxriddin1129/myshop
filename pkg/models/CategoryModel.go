@@ -1,7 +1,7 @@
 package models
 
 import (
-	"MYSHOP/pkg/config"
+	"MYSHOP/config"
 	"gorm.io/gorm"
 )
 
