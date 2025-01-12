@@ -12,14 +12,18 @@ var db *gorm.DB
 
 type User struct {
 	gorm.Model
-	FirstName    string    `json:"FirstName"`
-	LastName     string    `json:"LastName"`
+	FirstName    string    `json:"FirstName" gorm:"type:varchar(255)"`
+	LastName     string    `json:"LastName" gorm:"type:varchar(255)"`
 	Birthday     time.Time `json:"Birthday"`
-	Phone        string    `json:"Phone" gorm:"unique"`
-	Email        string    `json:"Email" gorm:"unique"`
+	Phone        string    `json:"Phone" gorm:"unique" gorm:"type:varchar(22)"`
+	Email        string    `json:"Email" gorm:"unique" gorm:"type:varchar(255)"`
 	Role         int8      `json:"Role"`
-	PasswordHash string    `json:"PasswordHash"`
+	PasswordHash string    `json:"PasswordHash" gorm:"type:varchar(255)"`
 	Status       int8      `json:"Status"`
+}
+
+func (User) TableName() string {
+	return "users"
 }
 
 func init() {

@@ -15,6 +15,8 @@ func main() {
 	router.HandleFunc("/", welcome)
 
 	routes.UserRoutes(router)
+	routes.CategoryRoutes(router)
+	routes.FileRoutes(router)
 
 	http.Handle("/", router)
 	fmt.Println("Listening on :8001")

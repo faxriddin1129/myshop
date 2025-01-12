@@ -9,10 +9,14 @@ import (
 type Token struct {
 	gorm.Model
 	UserId int64     `json:"UserId"`
-	Token  string    `json:"Token"`
+	Token  string    `json:"Token" gorm:"type:varchar(255)"`
 	Expire time.Time `json:"Expire"`
-	Ip     string    `json:"Ip"`
+	Ip     string    `json:"Ip" gorm:"type:varchar(255)"`
 	Device string    `json:"Device"`
+}
+
+func (Token) TableName() string {
+	return "tokens"
 }
 
 func init() {
@@ -27,15 +31,6 @@ func init() {
 func (t *Token) CreateAccessToken() *Token {
 	db.Create(&t)
 	return t
-}
-
-func init() {
-	config.Connect()
-	db = config.GetDB()
-	err := db.AutoMigrate(&Token{})
-	if err != nil {
-		panic(err)
-	}
 }
 
 func TokenExists(token string) (uint, bool) {

@@ -13,7 +13,6 @@ import (
 )
 
 func Login(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Content-Type", "application/json")
 	bodyParams := &repository.UserLoginStructRepository{}
 	utils.ParseBody(r, bodyParams)
 	validate := validator.New()
