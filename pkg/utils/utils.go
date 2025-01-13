@@ -68,7 +68,7 @@ func GenerateToken(id string) string {
 func FileGetPath() (string, error) {
 	now := time.Now()
 	year, month, day := now.Format("2006"), now.Format("01"), now.Format("02")
-	basePath := "storage"
+	basePath := "storage/app"
 	path := filepath.Join(basePath, year, month, day)
 
 	if _, err := os.Stat(path); os.IsNotExist(err) {
@@ -78,7 +78,7 @@ func FileGetPath() (string, error) {
 		}
 	}
 
-	return "storage/" + filepath.Join(year, month, day), nil
+	return "storage/app/" + filepath.Join(year, month, day), nil
 }
 
 func InArray(arr []string, value string) bool {
