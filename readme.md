@@ -30,13 +30,12 @@ Use the `Set` method to store data in the cache. You can set a specific expirati
 cache.Set("cache_key", data, 1*time.Hour)
 ```
 ### Cache GET
-Use the `Set` method to store data in the cache. You can set a specific expiration time for the cached data.
+Use the `Get` method to retrieve data from the cache.
 ```
 cache.Get("cache_key", data, 1*time.Hour)
 ```
 ### Cache Delete
-Use the `Set` method to store data in the cache. You can set a specific expiration time for the cached data.
-
+To delete the data in the cache, use the `Delete` method.
 ```
 cache.Delete("cache_key", data, 1*time.Hour)
 ```
