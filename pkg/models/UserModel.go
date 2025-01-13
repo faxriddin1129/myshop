@@ -20,6 +20,7 @@ type User struct {
 	Role         int8      `json:"Role"`
 	PasswordHash string    `json:"PasswordHash" gorm:"type:varchar(255)"`
 	Status       int8      `json:"Status"`
+	SessionId    string    `json:"SessionId" gorm:"type:varchar(255)"`
 }
 
 func (User) TableName() string {
