@@ -1,7 +1,7 @@
 package models
 
 import (
-	"MYSHOP/config"
+	"MYSHOP/config/database"
 	"MYSHOP/pkg/helpers"
 	"golang.org/x/crypto/bcrypt"
 	"gorm.io/gorm"
@@ -28,8 +28,8 @@ func (User) TableName() string {
 }
 
 func init() {
-	config.Connect()
-	db = config.GetDB()
+	database.Connect()
+	db = database.GetDB()
 	err := db.AutoMigrate(&User{})
 	if err != nil {
 		panic(err)

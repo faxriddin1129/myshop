@@ -1,7 +1,7 @@
 package models
 
 import (
-	"MYSHOP/config"
+	"MYSHOP/config/database"
 	"gorm.io/gorm"
 	"time"
 )
@@ -20,8 +20,8 @@ func (Token) TableName() string {
 }
 
 func init() {
-	config.Connect()
-	db = config.GetDB()
+	database.Connect()
+	db = database.GetDB()
 	err := db.AutoMigrate(&Token{})
 	if err != nil {
 		panic(err)

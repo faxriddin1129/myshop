@@ -1,7 +1,7 @@
 package models
 
 import (
-	"MYSHOP/config"
+	"MYSHOP/config/database"
 	"gorm.io/gorm"
 )
 
@@ -21,8 +21,8 @@ func (Category) TableName() string {
 }
 
 func init() {
-	config.Connect()
-	db = config.GetDB()
+	database.Connect()
+	db = database.GetDB()
 	err := db.AutoMigrate(&Category{})
 	if err != nil {
 		panic(err)
