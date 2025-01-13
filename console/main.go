@@ -3,5 +3,11 @@ package console
 import "fmt"
 
 func main() {
-	fmt.Println("STR")
+	//Call your functions here
+	sendMsgTelegram()
+}
+
+// other functions
+func sendMsgTelegram() {
+	fmt.Println("Sending")
 }
