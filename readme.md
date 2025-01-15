@@ -32,10 +32,10 @@ cache.Set("cache_key", data, 1*time.Hour)
 ### Cache GET
 Use the `Get` method to retrieve data from the cache.
 ```
-cache.Get("cache_key", data, 1*time.Hour)
+cache.Get("cache_key")
 ```
 ### Cache Delete
 To delete the data in the cache, use the `Delete` method.
 ```
-cache.Delete("cache_key", data, 1*time.Hour)
+cache.Delete("cache_key")
 ```
