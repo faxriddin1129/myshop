@@ -53,3 +53,47 @@ func CategorySave(w http.ResponseWriter, r *http.Request) {
 	model := models.CreateCategory(&category)
 	utils.RespondWithSuccess(w, nil, model)
 }
+
+func CategoryUpdate(w http.ResponseWriter, r *http.Request, modelCategory *models.Category) {
+
+	bodyParams := &CategoryValidateRepository{}
+	utils.ParseBody(r, bodyParams)
+	validate := validator.New()
+	err := validate.Struct(bodyParams)
+	if err != nil {
+		errorMessage := map[string]string{}
+		for _, err := range err.(validator.ValidationErrors) {
+			errorMessage[err.Field()] = fmt.Sprintf("%s: %s", err.Field(), err.Tag())
+		}
+		utils.RespondWithError(w, http.StatusUnprocessableEntity, errorMessage)
+		return
+	}
+
+	modelCategory.NameUz = bodyParams.NameUz
+	modelCategory.NameRu = bodyParams.NameRu
+	modelCategory.Type = bodyParams.Type
+	modelCategory.ParentID = bodyParams.ParentID
+	modelCategory.FileId = bodyParams.FileId
+
+	currentUrl := ""
+	if bodyParams.FileId != 0 {
+		fileModel, db := models.GetFileById(bodyParams.FileId)
+		if db.RowsAffected == 0 {
+			utils.RespondWithError(w, http.StatusNotFound, map[string]string{"message": "File not found"})
+			return
+		}
+		currentUrl = fileModel.CurrentUrl
+	}
+	modelCategory.CurrentFileUrl = currentUrl
+
+	_, err = models.CategoryUpdate(*modelCategory)
+	if err != nil {
+		return
+	}
+
+	utils.RespondWithSuccess(w, nil, modelCategory)
+}
+
+func CategoryDelete(w http.ResponseWriter, r *http.Request) {
+	http.Error(w, "CategoryDelete!", http.StatusNotImplemented)
+}

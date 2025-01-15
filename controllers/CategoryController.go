@@ -13,17 +13,37 @@ func CreateCategory(w http.ResponseWriter, r *http.Request) {
 }
 
 func CategoryGetAll(w http.ResponseWriter, r *http.Request) {
-
 	ID := 0
 	ParentId := r.URL.Query().Get("id")
 	if ParentId != "" {
 		ID, _ = strconv.Atoi(ParentId)
 	}
-
 	res := models.CategoryGetAll(ID)
 	utils.RespondWithSuccess(w, nil, res)
 }
 
 func CategoryUpdate(w http.ResponseWriter, r *http.Request) {
-	http.Error(w, "InProgress!", http.StatusNotImplemented)
+
+	ID := 0
+	QueryId := r.URL.Query().Get("id")
+	if QueryId != "" {
+		ID, _ = strconv.Atoi(QueryId)
+	} else {
+		utils.RespondWithError(w, http.StatusUnprocessableEntity, map[string]string{"msg": "Id is required"})
+		return
+	}
+
+	model, _ := models.CategoryGetById(int64(ID))
+	if model.ID == 0 {
+		utils.RespondWithError(w, http.StatusNotFound, map[string]string{"msg": "Category not found"})
+		return
+	}
+
+	repository.CategoryUpdate(w, r, model)
+
+}
+
+func CategoryDelete(w http.ResponseWriter, r *http.Request) {
+	repository.CategoryDelete(w, r)
+	return
 }

@@ -47,3 +47,14 @@ func CategoryGetAll(parent int) []Category {
 	}
 	return categories
 }
+
+func CategoryGetById(id int64) (*Category, *gorm.DB) {
+	var category Category
+	db.Where("ID = ?", id).Find(&category)
+	return &category, db
+}
+
+func CategoryUpdate(c Category) (int64, error) {
+	re := db.Model(&c).Where("ID=?", c.ID).Updates(&c)
+	return re.RowsAffected, re.Error
+}
