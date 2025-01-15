@@ -1,9 +1,9 @@
 package controllers
 
 import (
-	"MYSHOP/pkg/models"
-	"MYSHOP/pkg/utils"
 	"io"
+	"myshop/models"
+	"myshop/utils"
 	"net/http"
 	"os"
 	"path/filepath"

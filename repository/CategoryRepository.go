@@ -1,10 +1,10 @@
 package repository
 
 import (
-	"MYSHOP/pkg/models"
-	"MYSHOP/pkg/utils"
 	"fmt"
 	"github.com/go-playground/validator/v10"
+	"myshop/models"
+	"myshop/utils"
 	"net/http"
 )
 

@@ -1,11 +1,10 @@
 package middleware
 
 import (
+	"myshop/models"
+	"myshop/utils"
 	"net/http"
 	"strings"
-
-	"MYSHOP/pkg/models"
-	"MYSHOP/pkg/utils"
 )
 
 func AuthMiddleware(next http.Handler) http.Handler {

@@ -1,4 +1,4 @@
-module MYSHOP
+module myshop
 
 go 1.23
 

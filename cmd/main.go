@@ -1,11 +1,11 @@
 package main
 
 import (
-	"MYSHOP/pkg/routes"
-	"MYSHOP/pkg/utils"
 	"fmt"
 	"github.com/gorilla/mux"
 	"log"
+	"myshop/routes"
+	"myshop/utils"
 	"net/http"
 	"time"
 )

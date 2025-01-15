@@ -1,12 +1,12 @@
 package controllers
 
 import (
-	"MYSHOP/pkg/models"
-	"MYSHOP/pkg/repository"
-	"MYSHOP/pkg/utils"
 	"fmt"
 	"github.com/go-playground/validator/v10"
 	"golang.org/x/crypto/bcrypt"
+	"myshop/models"
+	"myshop/repository"
+	"myshop/utils"
 	"net/http"
 	"strconv"
 	"time"

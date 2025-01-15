@@ -1,10 +1,10 @@
 package models
 
 import (
-	"MYSHOP/config/database"
-	"MYSHOP/pkg/helpers"
 	"golang.org/x/crypto/bcrypt"
 	"gorm.io/gorm"
+	"myshop/config/database"
+	"myshop/helpers"
 	"time"
 )
 

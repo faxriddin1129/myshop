@@ -1,9 +1,9 @@
 package routes
 
 import (
-	"MYSHOP/pkg/controllers"
-	"MYSHOP/pkg/middleware"
 	"github.com/gorilla/mux"
+	"myshop/controllers"
+	"myshop/middleware"
 	"net/http"
 )
 

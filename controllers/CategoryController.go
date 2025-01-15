@@ -1,9 +1,9 @@
 package controllers
 
 import (
-	"MYSHOP/pkg/models"
-	"MYSHOP/pkg/repository"
-	"MYSHOP/pkg/utils"
+	"myshop/models"
+	"myshop/repository"
+	"myshop/utils"
 	"net/http"
 	"strconv"
 )

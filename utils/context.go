@@ -1,8 +1,8 @@
 package utils
 
 import (
-	"MYSHOP/pkg/models"
 	"context"
+	"myshop/models"
 )
 
 type contextKey string

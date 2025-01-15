@@ -1,8 +1,8 @@
 package models
 
 import (
-	"MYSHOP/config/database"
 	"gorm.io/gorm"
+	"myshop/config/database"
 )
 
 type Category struct {
