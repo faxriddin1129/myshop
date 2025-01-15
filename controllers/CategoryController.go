@@ -25,5 +25,5 @@ func CategoryGetAll(w http.ResponseWriter, r *http.Request) {
 }
 
 func CategoryUpdate(w http.ResponseWriter, r *http.Request) {
-	http.Error(w, "Implement me, Update", http.StatusNotImplemented)
+	http.Error(w, "InProgress!", http.StatusNotImplemented)
 }
