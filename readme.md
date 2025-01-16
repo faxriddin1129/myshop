@@ -39,3 +39,27 @@ To delete the data in the cache, use the `Delete` method.
 ```
 cache.Delete("cache_key")
 ```
+## Update packages
+```
+go mod tidy
+```
+## BUILD FOR LINUX 64bit
+```
+GOOS=linux GOARCH=amd64 go build -o myapp
+```
+```
+chmod +x myapp
+```
+```
+./myapp 
+```
+## BUILD FOR LOCALHOST
+```
+go build -o myapp
+```
+```
+chmod +x myapp
+```
+```
+./myapp 
+```
