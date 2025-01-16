@@ -63,3 +63,37 @@ chmod +x myapp
 ```
 ./myapp 
 ```
+
+## SERVER RELOAD
+Create service file
+```
+sudo nano /etc/systemd/system/myshop.service
+```
+
+```
+[Unit]
+Description=Go MyShop Application
+After=network.target
+
+[Service]
+ExecStart=/home/myshop/myapp
+WorkingDirectory=/home/myshop
+Restart=always
+User=ubuntu
+
+[Install]
+WantedBy=multi-user.target
+
+```
+```
+sudo systemctl daemon-reload
+```
+```
+sudo systemctl start myshop
+```
+```
+sudo systemctl enable myshop
+```
+```
+sudo systemctl status myshop
+```
