@@ -9,7 +9,6 @@ type Category struct {
 	gorm.Model
 	NameUz         string `json:"NameUz" gorm:"type:varchar(255)"`
 	NameRu         string `json:"NameRu" gorm:"type:varchar(255)"`
-	ImageUrl       string `json:"ImageUrl" gorm:"type:varchar(255)"`
 	ParentID       *int64 `json:"ParentID"`
 	Type           string `json:"Type" gorm:"type:varchar(255)"`
 	FileId         int64  `json:"FileId"`
@@ -29,7 +28,7 @@ func init() {
 	}
 }
 
-func CreateCategory(c *Category) *Category {
+func CategoryCreate(c *Category) *Category {
 
 	if c.ParentID != nil && *c.ParentID == 0 {
 		c.ParentID = nil
@@ -57,4 +56,10 @@ func CategoryGetById(id int64) (*Category, *gorm.DB) {
 func CategoryUpdate(c Category) (int64, error) {
 	re := db.Model(&c).Where("ID=?", c.ID).Updates(&c)
 	return re.RowsAffected, re.Error
+}
+
+func CategoryDelete(id int64) Category {
+	var category Category
+	db.Where("ID = ?", id).Delete(&category)
+	return category
 }

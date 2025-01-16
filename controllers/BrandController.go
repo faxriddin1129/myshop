@@ -1,0 +1,61 @@
+package controllers
+
+import (
+	"myshop/models"
+	"myshop/repository"
+	"myshop/utils"
+	"net/http"
+	"strconv"
+)
+
+func BrandCategory(w http.ResponseWriter, r *http.Request) {
+	repository.BrandCreate(w, r)
+}
+
+func BrandGetAll(w http.ResponseWriter, r *http.Request) {
+	res := models.BrandGetAll()
+	utils.RespondWithSuccess(w, nil, res)
+}
+
+func BrandUpdate(w http.ResponseWriter, r *http.Request) {
+
+	ID := 0
+	QueryId := r.URL.Query().Get("id")
+	if QueryId != "" {
+		ID, _ = strconv.Atoi(QueryId)
+	} else {
+		utils.RespondWithError(w, http.StatusUnprocessableEntity, map[string]string{"msg": "Id is required"})
+		return
+	}
+
+	model, _ := models.BrandGetById(int64(ID))
+	if model.ID == 0 {
+		utils.RespondWithError(w, http.StatusNotFound, map[string]string{"msg": "Brand not found"})
+		return
+	}
+
+	repository.BrandUpdate(w, r, model)
+
+}
+
+func BrandDelete(w http.ResponseWriter, r *http.Request) {
+
+	ID := 0
+	QueryId := r.URL.Query().Get("id")
+	if QueryId != "" {
+		ID, _ = strconv.Atoi(QueryId)
+	} else {
+		utils.RespondWithError(w, http.StatusUnprocessableEntity, map[string]string{"msg": "Id is required"})
+		return
+	}
+
+	model, _ := models.BrandGetById(int64(ID))
+	if model.ID == 0 {
+		utils.RespondWithError(w, http.StatusNotFound, map[string]string{"msg": "Brand not found"})
+		return
+	}
+
+	models.BrandDelete(int64(ID))
+	utils.RespondWithSuccess(w, map[string]string{"msg": "Deleted brand"}, nil)
+	return
+}

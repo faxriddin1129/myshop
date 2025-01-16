@@ -8,17 +8,15 @@ import (
 	"net/http"
 )
 
-type CategoryValidateRepository struct {
+type BrandValidateRepository struct {
 	NameUz         string `json:"NameUz" validate:"required,max=255"`
 	NameRu         string `json:"NameRu" validate:"required,max=255"`
-	Type           string `json:"Type" validate:"required,max=255"`
-	ParentID       *int64 `json:"ParentID"`
 	FileId         int64  `json:"FileId"`
 	CurrentFileUrl string `json:"CurrentFileUrl" validate:"max=255"`
 }
 
-func CategoryCreate(w http.ResponseWriter, r *http.Request) {
-	bodyParams := &CategoryValidateRepository{}
+func BrandCreate(w http.ResponseWriter, r *http.Request) {
+	bodyParams := &BrandValidateRepository{}
 	utils.ParseBody(r, bodyParams)
 	validate := validator.New()
 	err := validate.Struct(bodyParams)
@@ -41,21 +39,19 @@ func CategoryCreate(w http.ResponseWriter, r *http.Request) {
 		currentUrl = fileModel.CurrentUrl
 	}
 
-	category := models.Category{}
-	category.NameUz = bodyParams.NameUz
-	category.NameRu = bodyParams.NameRu
-	category.Type = bodyParams.Type
-	category.ParentID = bodyParams.ParentID
-	category.FileId = bodyParams.FileId
-	category.CurrentFileUrl = currentUrl
+	brand := models.Brand{}
+	brand.NameUz = bodyParams.NameUz
+	brand.NameRu = bodyParams.NameRu
+	brand.FileId = bodyParams.FileId
+	brand.CurrentFileUrl = currentUrl
 
-	model := models.CategoryCreate(&category)
+	model := models.BrandCreate(&brand)
 	utils.RespondWithSuccess(w, nil, model)
 }
 
-func CategoryUpdate(w http.ResponseWriter, r *http.Request, modelCategory *models.Category) {
+func BrandUpdate(w http.ResponseWriter, r *http.Request, brandCategory *models.Brand) {
 
-	bodyParams := &CategoryValidateRepository{}
+	bodyParams := &BrandValidateRepository{}
 	utils.ParseBody(r, bodyParams)
 	validate := validator.New()
 	err := validate.Struct(bodyParams)
@@ -68,11 +64,9 @@ func CategoryUpdate(w http.ResponseWriter, r *http.Request, modelCategory *model
 		return
 	}
 
-	modelCategory.NameUz = bodyParams.NameUz
-	modelCategory.NameRu = bodyParams.NameRu
-	modelCategory.Type = bodyParams.Type
-	modelCategory.ParentID = bodyParams.ParentID
-	modelCategory.FileId = bodyParams.FileId
+	brandCategory.NameUz = bodyParams.NameUz
+	brandCategory.NameRu = bodyParams.NameRu
+	brandCategory.FileId = bodyParams.FileId
 
 	currentUrl := ""
 	if bodyParams.FileId != 0 {
@@ -83,12 +77,12 @@ func CategoryUpdate(w http.ResponseWriter, r *http.Request, modelCategory *model
 		}
 		currentUrl = fileModel.CurrentUrl
 	}
-	modelCategory.CurrentFileUrl = currentUrl
+	brandCategory.CurrentFileUrl = currentUrl
 
-	_, err = models.CategoryUpdate(*modelCategory)
+	_, err = models.BrandUpdate(*brandCategory)
 	if err != nil {
 		return
 	}
 
-	utils.RespondWithSuccess(w, nil, modelCategory)
+	utils.RespondWithSuccess(w, nil, brandCategory)
 }

@@ -13,11 +13,7 @@ import (
 func main() {
 	router := mux.NewRouter()
 	router.HandleFunc("/", welcome)
-
-	routes.UserRoutes(router)
-	routes.CategoryRoutes(router)
-	routes.FileRoutes(router)
-
+	routes.ValidRoutes(router)
 	http.Handle("/", router)
 	fmt.Println("Listening on :8001")
 	log.Fatal(http.ListenAndServe(":8001", router))
