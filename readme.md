@@ -64,7 +64,7 @@ chmod +x myapp
 ./myapp 
 ```
 
-## SERVER RELOAD
+## SERVER DEPLOY
 Create service file
 ```
 sudo nano /etc/systemd/system/myshop.service
