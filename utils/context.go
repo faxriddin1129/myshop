@@ -13,7 +13,7 @@ func SetUserIDToContext(ctx context.Context, userID uint) context.Context {
 	return context.WithValue(ctx, userIDKey, userID)
 }
 
-func GetUserIDFromContext(ctx context.Context) *models.User {
+func Auth(ctx context.Context) *models.User {
 	if userID, ok := ctx.Value(userIDKey).(uint); ok {
 		userModel, _ := models.GetUserById(int64(userID))
 		return userModel
