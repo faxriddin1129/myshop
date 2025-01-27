@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"github.com/gorilla/mux"
+	"github.com/rs/cors"
 	"log"
 	"myshop/routes"
 	"myshop/utils"
@@ -12,11 +13,19 @@ import (
 
 func main() {
 	router := mux.NewRouter()
-	router.HandleFunc("/", welcome)
+	router.HandleFunc("/", welcome).Methods("GET")
 	routes.ValidRoutes(router)
 	http.Handle("/", router)
+	c := cors.New(cors.Options{
+		AllowedOrigins:   []string{"*"},
+		AllowedMethods:   []string{"GET", "PUT", "PATCH", "DELETE", "HEAD", "OPTIONS", "POST"},
+		AllowedHeaders:   []string{"Content-Type", "Authorization"},
+		AllowCredentials: true,
+	})
+	handler := c.Handler(router)
+
 	fmt.Println("Listening on :8001")
-	log.Fatal(http.ListenAndServe(":8001", router))
+	log.Fatal(http.ListenAndServe(":8001", handler))
 }
 
 func welcome(w http.ResponseWriter, r *http.Request) {

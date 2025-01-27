@@ -16,6 +16,9 @@ go get github.com/joho/godotenv
 ```
 go get github.com/go-playground/validator/v10
 ```
+```
+go get -u github.com/rs/cors
+```
 
 ### DATABASE `POSTGRESSQL`
 Supports the latest version of Postgres!
@@ -96,4 +99,7 @@ sudo systemctl enable myshop
 ```
 ```
 sudo systemctl status myshop
+```
+```
+sudo systemctl restart myshop
 ```
