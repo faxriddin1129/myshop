@@ -43,6 +43,23 @@ func (p *Product) ProductCreate() *Product {
 	return p
 }
 
+func ProductGetAll() []Product {
+	var products []Product
+	db.Find(&products)
+	return products
+}
+
+func ProductGetById(id int64) (*Product, *gorm.DB) {
+	var product Product
+	db.Where("ID = ?", id).Find(&product)
+	return &product, db
+}
+
+func ProductUpdate(c Product) (int64, error) {
+	re := db.Model(&c).Where("ID=?", c.ID).Updates(&c)
+	return re.RowsAffected, re.Error
+}
+
 func ProductDelete(id int64) Product {
 	var product Product
 	db.Where("ID = ?", id).Delete(&product)
