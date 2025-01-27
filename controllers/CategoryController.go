@@ -10,6 +10,7 @@ import (
 
 func CreateCategory(w http.ResponseWriter, r *http.Request) {
 	repository.CategoryCreate(w, r)
+	return
 }
 
 func CategoryGetAll(w http.ResponseWriter, r *http.Request) {
@@ -20,6 +21,7 @@ func CategoryGetAll(w http.ResponseWriter, r *http.Request) {
 	}
 	res := models.CategoryGetAll(ID)
 	utils.RespondWithSuccess(w, nil, res)
+	return
 }
 
 func CategoryUpdate(w http.ResponseWriter, r *http.Request) {
@@ -40,7 +42,7 @@ func CategoryUpdate(w http.ResponseWriter, r *http.Request) {
 	}
 
 	repository.CategoryUpdate(w, r, model)
-
+	return
 }
 
 func CategoryDelete(w http.ResponseWriter, r *http.Request) {

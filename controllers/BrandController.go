@@ -10,11 +10,13 @@ import (
 
 func BrandCategory(w http.ResponseWriter, r *http.Request) {
 	repository.BrandCreate(w, r)
+	return
 }
 
 func BrandGetAll(w http.ResponseWriter, r *http.Request) {
 	res := models.BrandGetAll()
 	utils.RespondWithSuccess(w, nil, res)
+	return
 }
 
 func BrandUpdate(w http.ResponseWriter, r *http.Request) {
@@ -35,7 +37,7 @@ func BrandUpdate(w http.ResponseWriter, r *http.Request) {
 	}
 
 	repository.BrandUpdate(w, r, model)
-
+	return
 }
 
 func BrandDelete(w http.ResponseWriter, r *http.Request) {

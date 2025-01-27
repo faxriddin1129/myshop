@@ -53,6 +53,7 @@ func Login(w http.ResponseWriter, r *http.Request) {
 				"IPv6":   IPv6,
 				"Device": Device,
 			}, nil)
+			return
 		}
 	}
 }
@@ -60,4 +61,5 @@ func Login(w http.ResponseWriter, r *http.Request) {
 func GetMe(w http.ResponseWriter, r *http.Request) {
 	userModel := utils.Auth(r.Context())
 	utils.RespondWithSuccess(w, nil, userModel)
+	return
 }

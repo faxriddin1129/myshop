@@ -59,5 +59,5 @@ func FileUpload(w http.ResponseWriter, r *http.Request) {
 	obj := models.CreateFileModel(&fileModel)
 
 	utils.RespondWithSuccess(w, nil, obj)
-
+	return
 }
