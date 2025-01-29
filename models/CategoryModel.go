@@ -29,7 +29,6 @@ func init() {
 }
 
 func CategoryCreate(c *Category) *Category {
-
 	if c.ParentID != nil && *c.ParentID == 0 {
 		c.ParentID = nil
 	}
@@ -44,6 +43,12 @@ func CategoryGetAll(parent int) []Category {
 	} else {
 		db.Where("parent_id IS NULL").Find(&categories)
 	}
+	return categories
+}
+
+func CategoryGetAllNoParents() []Category {
+	var categories []Category
+	db.Find(&categories)
 	return categories
 }
 
