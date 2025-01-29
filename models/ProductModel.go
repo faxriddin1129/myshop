@@ -42,10 +42,14 @@ func ProductCreate(p *Product) *Product {
 	return p
 }
 
-func ProductGetAll() []Product {
+func ProductGetAll(limit, offset int) ([]Product, int64) {
+
+	var total int64
+	db.Model(&Product{}).Count(&total)
+
 	var products []Product
-	db.Find(&products)
-	return products
+	db.Limit(limit).Offset(offset).Find(&products)
+	return products, total
 }
 
 func ProductGetById(id int64) (*Product, *gorm.DB) {
