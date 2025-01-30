@@ -26,7 +26,7 @@ type ProductValidateRepository struct {
 	ProductionTime     string  `json:"ProductionTime" validate:"omitempty"`
 }
 
-type ProductImageValidateRepository struct {
+type ProductImageValidate struct {
 	FileId    int64 `json:"FileId" validate:"required"`
 	ProductId int64 `json:"ProductId" validate:"required"`
 }

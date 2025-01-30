@@ -107,7 +107,7 @@ func ProductUpdate(w http.ResponseWriter, r *http.Request) {
 
 func ProductAddImage(w http.ResponseWriter, r *http.Request) {
 
-	bodyParams := &repository.ProductImageValidateRepository{}
+	bodyParams := &repository.ProductImageValidate{}
 	utils.ParseBody(r, bodyParams)
 	validate := validator.New()
 	err := validate.Struct(bodyParams)
