@@ -28,5 +28,6 @@ var ValidRoutes = func(router *mux.Router) {
 	router.Handle("/product", middleware.AuthMiddleware(http.HandlerFunc(controllers.ProductUpdate))).Methods("PUT")
 	router.Handle("/product-view", middleware.AuthMiddleware(http.HandlerFunc(controllers.ProductView))).Methods("GET")
 	router.Handle("/product-add-image", middleware.AuthMiddleware(http.HandlerFunc(controllers.ProductAddImage))).Methods("POST")
+	router.Handle("/product-remove-image", middleware.AuthMiddleware(http.HandlerFunc(controllers.ProductImageDelete))).Methods("DELETE")
 
 }

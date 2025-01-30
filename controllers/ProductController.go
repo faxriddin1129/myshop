@@ -1,6 +1,8 @@
 package controllers
 
 import (
+	"fmt"
+	"github.com/go-playground/validator/v10"
 	"myshop/models"
 	"myshop/repository"
 	"myshop/utils"
@@ -104,5 +106,55 @@ func ProductUpdate(w http.ResponseWriter, r *http.Request) {
 }
 
 func ProductAddImage(w http.ResponseWriter, r *http.Request) {
+
+	bodyParams := &repository.ProductImageValidateRepository{}
+	utils.ParseBody(r, bodyParams)
+	validate := validator.New()
+	err := validate.Struct(bodyParams)
+	if err != nil {
+		errorMessage := map[string]string{}
+		for _, err := range err.(validator.ValidationErrors) {
+			errorMessage[err.Field()] = fmt.Sprintf("%s: %s", err.Field(), err.Tag())
+		}
+		utils.RespondWithError(w, http.StatusUnprocessableEntity, errorMessage)
+		return
+	}
+
+	productModel, _ := models.ProductGetById(bodyParams.ProductId)
+	if productModel.ID == 0 {
+		utils.RespondWithError(w, http.StatusInternalServerError, map[string]string{"msg": "Product not found"})
+		return
+	}
+
+	fileModel, _ := models.GetFileById(bodyParams.FileId)
+	if fileModel.ID == 0 {
+		utils.RespondWithError(w, http.StatusInternalServerError, map[string]string{"msg": "File not found"})
+		return
+	}
+
+	model := models.ProductImage{}
+	model.FileId = bodyParams.FileId
+	model.ProductId = bodyParams.ProductId
+	model.CurrentUrl = fileModel.CurrentUrl
+
+	obj := models.CreateProductImages(&model)
+	utils.RespondWithSuccess(w, nil, obj)
 	return
+}
+
+func ProductImageDelete(w http.ResponseWriter, r *http.Request) {
+	id, _ := strconv.Atoi(r.URL.Query().Get("id"))
+	if id == 0 {
+		utils.RespondWithError(w, http.StatusUnprocessableEntity, map[string]string{"msg": "id is empty"})
+		return
+	}
+
+	productImageModel, _ := models.GetProductImageById(int64(id))
+	if productImageModel.ID == 0 {
+		utils.RespondWithError(w, http.StatusInternalServerError, map[string]string{"msg": "Image not found"})
+		return
+	}
+
+	models.ProductImagesDelete(int64(id))
+	utils.RespondWithSuccess(w, map[string]string{"msg": "Successfully deleted!"}, nil)
 }

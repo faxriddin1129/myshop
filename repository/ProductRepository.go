@@ -26,6 +26,11 @@ type ProductValidateRepository struct {
 	ProductionTime     string  `json:"ProductionTime" validate:"omitempty"`
 }
 
+type ProductImageValidateRepository struct {
+	FileId    int64 `json:"FileId" validate:"required"`
+	ProductId int64 `json:"ProductId" validate:"required"`
+}
+
 type ProductResponse struct {
 	Product  interface{} `json:"Product"`
 	Category interface{} `json:"Category"`

@@ -86,19 +86,21 @@ User=ubuntu
 
 [Install]
 WantedBy=multi-user.target
-
 ```
 ```
 sudo systemctl daemon-reload
 ```
 ```
-sudo systemctl start myshop
-```
-```
 sudo systemctl enable myshop
 ```
 ```
+sudo systemctl start myshop
+```
+```
 sudo systemctl status myshop
+```
+```
+sudo systemctl stop myshop
 ```
 ```
 sudo systemctl restart myshop
