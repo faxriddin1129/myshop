@@ -48,7 +48,7 @@ go mod tidy
 ```
 ## BUILD FOR LINUX 64bit
 ```
-GOOS=linux GOARCH=amd64 go build -o myapp
+GOOS=linux GOARCH=amd64 go build -o ../myapp
 ```
 ```
 chmod +x myapp
@@ -58,7 +58,7 @@ chmod +x myapp
 ```
 ## BUILD FOR LOCALHOST
 ```
-go build -o myapp
+go build -o ../myapp
 ```
 ```
 chmod +x myapp
