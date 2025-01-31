@@ -18,7 +18,7 @@ var ValidRoutes = func(router *mux.Router) {
 	router.Handle("/category", middleware.AuthMiddleware(http.HandlerFunc(controllers.CategoryUpdate))).Methods("PUT")
 	router.Handle("/category", middleware.AuthMiddleware(http.HandlerFunc(controllers.CategoryDelete))).Methods("DELETE")
 
-	router.Handle("/brand", middleware.AuthMiddleware(http.HandlerFunc(controllers.BrandCategory))).Methods("POST")
+	router.Handle("/brand", middleware.AuthMiddleware(http.HandlerFunc(controllers.BrandCreate))).Methods("POST")
 	router.Handle("/brand", middleware.AuthMiddleware(http.HandlerFunc(controllers.BrandGetAll))).Methods("GET")
 	router.Handle("/brand", middleware.AuthMiddleware(http.HandlerFunc(controllers.BrandUpdate))).Methods("PUT")
 	router.Handle("/brand", middleware.AuthMiddleware(http.HandlerFunc(controllers.BrandDelete))).Methods("DELETE")
@@ -29,5 +29,10 @@ var ValidRoutes = func(router *mux.Router) {
 	router.Handle("/product-view", middleware.AuthMiddleware(http.HandlerFunc(controllers.ProductView))).Methods("GET")
 	router.Handle("/product-add-image", middleware.AuthMiddleware(http.HandlerFunc(controllers.ProductAddImage))).Methods("POST")
 	router.Handle("/product-remove-image", middleware.AuthMiddleware(http.HandlerFunc(controllers.ProductImageDelete))).Methods("DELETE")
+
+	router.Handle("/banner", middleware.AuthMiddleware(http.HandlerFunc(controllers.BannerCreate))).Methods("POST")
+	router.Handle("/banner", middleware.AuthMiddleware(http.HandlerFunc(controllers.BannerGetAll))).Methods("GET")
+	router.Handle("/banner-view", middleware.AuthMiddleware(http.HandlerFunc(controllers.BannerGetById))).Methods("GET")
+	router.Handle("/banner", middleware.AuthMiddleware(http.HandlerFunc(controllers.BannerDelete))).Methods("DELETE")
 
 }

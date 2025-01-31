@@ -8,7 +8,7 @@ import (
 	"strconv"
 )
 
-func BrandCategory(w http.ResponseWriter, r *http.Request) {
+func BrandCreate(w http.ResponseWriter, r *http.Request) {
 	repository.BrandCreate(w, r)
 	return
 }
