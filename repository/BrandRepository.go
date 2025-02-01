@@ -78,11 +78,7 @@ func BrandUpdate(w http.ResponseWriter, r *http.Request, brandCategory *models.B
 		currentUrl = fileModel.CurrentUrl
 	}
 	brandCategory.CurrentFileUrl = currentUrl
-
 	_, err = models.BrandUpdate(*brandCategory)
-	if err != nil {
-		return
-	}
 
 	utils.RespondWithSuccess(w, nil, brandCategory)
 }

@@ -84,11 +84,6 @@ func GetUserById(Id int64) (*User, *gorm.DB) {
 	return &getUser, db
 }
 
-func UpdateUser(user User) (int64, error) {
-	re := db.Model(&user).Where("ID=?", user.ID).Updates(&user)
-	return re.RowsAffected, re.Error
-}
-
 func HashPassword(password string) string {
 	hashedPassword, err := bcrypt.GenerateFromPassword([]byte(password), bcrypt.DefaultCost)
 	if err != nil {

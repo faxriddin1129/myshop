@@ -44,8 +44,8 @@ func BrandGetById(id int64) (*Brand, *gorm.DB) {
 }
 
 func BrandUpdate(c Brand) (int64, error) {
-	re := db.Model(&c).Where("ID=?", c.ID).Updates(&c)
-	return re.RowsAffected, re.Error
+	res := db.Model(&c).Where("ID=?", c.ID).Updates(&c)
+	return res.RowsAffected, res.Error
 }
 
 func BrandDelete(id int64) Brand {

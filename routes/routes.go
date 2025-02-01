@@ -35,4 +35,7 @@ var ValidRoutes = func(router *mux.Router) {
 	router.Handle("/banner-view", middleware.AuthMiddleware(http.HandlerFunc(controllers.BannerGetById))).Methods("GET")
 	router.Handle("/banner", middleware.AuthMiddleware(http.HandlerFunc(controllers.BannerDelete))).Methods("DELETE")
 
+	router.Handle("/config", middleware.AuthMiddleware(http.HandlerFunc(controllers.ConfigUpdate))).Methods("PUT")
+	router.Handle("/config", middleware.AuthMiddleware(http.HandlerFunc(controllers.ConfigGet))).Methods("GET")
+
 }
