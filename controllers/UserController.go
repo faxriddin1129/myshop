@@ -6,6 +6,7 @@ import (
 	"golang.org/x/crypto/bcrypt"
 	"myshop/models"
 	"myshop/repository"
+	"myshop/services"
 	"myshop/utils"
 	"net/http"
 	"strconv"
@@ -62,4 +63,10 @@ func GetMe(w http.ResponseWriter, r *http.Request) {
 	userModel := utils.Auth(r.Context())
 	utils.RespondWithSuccess(w, nil, userModel)
 	return
+}
+
+func Check(w http.ResponseWriter, r *http.Request) {
+	if err := services.GetToken(); err != nil {
+		fmt.Println("Xatolik:", err)
+	}
 }

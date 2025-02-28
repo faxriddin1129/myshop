@@ -38,4 +38,5 @@ var ValidRoutes = func(router *mux.Router) {
 	router.Handle("/config", middleware.AuthMiddleware(http.HandlerFunc(controllers.ConfigUpdate))).Methods("PUT")
 	router.Handle("/config", middleware.AuthMiddleware(http.HandlerFunc(controllers.ConfigGet))).Methods("GET")
 
+	router.Handle("/check", middleware.AuthMiddleware(http.HandlerFunc(controllers.Check))).Methods("GET")
 }
